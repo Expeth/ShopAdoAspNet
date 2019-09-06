@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ShopAdo.DAL.Good>
+
+<div class="row-container">
+    @foreach (var item in Model)
+    {
+        <div class="card mr-2 mb-2" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@item.GoodName</h5>
+                <p class="card-text">@item.Price USD</p>
+                <a href="#" class="btn btn-primary">Buy now</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ShopAdo.DAL.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-3">
+        <div class="list-group">
+            @foreach (var item in Model)
+            {
+                <button class="list-group-item" id="@item.CategoryId">@item.CategoryName</button>
+            }
+        </div>
+    </div>
+    <div class="col-9" id="goods"></div>
+</div>
+
+<script>
+    $(() => {
+        //$(".list-group-item")[0].classList.add("active");
+        $(".list-group-item").on("click", (e) => {
+            $("#goods").load("/Shop/Goods?id=" + e.target.id);
+        });
+    });
+</script>
