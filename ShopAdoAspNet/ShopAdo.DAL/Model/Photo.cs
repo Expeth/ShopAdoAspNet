@@ -16,5 +16,10 @@ namespace ShopAdo.DAL
         [Required]
         [StringLength(200)]
         public string PhotoPath { get; set; }
+
+        public override string ToString()
+        {
+            return PhotoPath;
+        }
     }
 }

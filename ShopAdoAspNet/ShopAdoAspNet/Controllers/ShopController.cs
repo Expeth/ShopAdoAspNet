@@ -1,5 +1,6 @@
 ﻿using ShopAdo.DAL;
 using ShopAdo.DAL.Repositories;
+using ShopAdoAspNet.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,13 @@ namespace ShopAdoAspNet.Controllers
     {
         private readonly IRepository<Good> _goodRepository;
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<Manufacturer> _manufacturerRepository;
+        private readonly IRepository<Photo> _photoRepository;
 
-        public ShopController(IRepository<Good> goodRepository, IRepository<Category> categoryRepository, IRepository<Manufacturer> manufacturerRepository)
+        public ShopController(IRepository<Good> goodRepository, IRepository<Category> categoryRepository, IRepository<Photo> photoRepository)
         {
             _goodRepository = goodRepository;
             _categoryRepository = categoryRepository;
-            _manufacturerRepository = manufacturerRepository;
+            _photoRepository = photoRepository;
         }
 
         public ActionResult Index()
@@ -28,7 +29,18 @@ namespace ShopAdoAspNet.Controllers
 
         public ActionResult Goods(int id)
         {
-            return PartialView(_goodRepository.GetAll().Where(x => x.CategoryId == id));
+            var goods = new List<GoodViewModel>();
+            foreach (var i in _goodRepository.GetAll().Where(x => x.CategoryId == id))
+            {
+                goods.Add(new GoodViewModel
+                {
+                    GoodName = i.GoodName,
+                    GoodCount = (int)i.GoodCount,
+                    Price = i.Price,
+                    Photos = _photoRepository.GetAll().Where(p => p.GoodId == i.GoodId).ToList()
+                });
+            }
+            return PartialView(goods);
         }
     }
 }

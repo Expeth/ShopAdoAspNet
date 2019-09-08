@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopAdo.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace ShopAdoAspNet.Models
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
         public int ManufacturerId { get; set; }
+        public IEnumerable<Photo> Photos { get; set; }
         public IEnumerable<SelectListItem> Manufacturers { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
     }

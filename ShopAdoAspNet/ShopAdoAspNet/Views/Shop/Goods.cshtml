@@ -1,10 +1,10 @@
-﻿@model IEnumerable<ShopAdo.DAL.Good>
+﻿@model IEnumerable<ShopAdoAspNet.Models.GoodViewModel>
 
 <div class="row-container">
     @foreach (var item in Model)
     {
         <div class="card mr-2 mb-2" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="@item.Photos.FirstOrDefault()" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">@item.GoodName</h5>
                 <p class="card-text">@item.Price USD</p>
