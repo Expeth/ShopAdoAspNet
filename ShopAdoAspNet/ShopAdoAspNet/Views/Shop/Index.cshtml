@@ -6,11 +6,16 @@
 
 <div class="row">
     <div class="col-3">
-        <div class="list-group">
-            @foreach (var item in Model)
-            {
-                <button class="list-group-item" id="@item.CategoryId">@item.CategoryName</button>
-            }
+        <div class="card">
+            <div class="card-header">
+                <h4>Categories</h4>
+            </div>
+            <div class="card-body">
+                @foreach (var item in Model)
+                {
+                    <a class="menu-btn" id="@item.CategoryId">@item.CategoryName</a><br><br>
+                }
+            </div>
         </div>
     </div>
     <div class="col-9" id="goods"></div>
@@ -18,8 +23,7 @@
 
 <script>
     $(() => {
-        //$(".list-group-item")[0].classList.add("active");
-        $(".list-group-item").on("click", (e) => {
+        $(".menu-btn").on("click", (e) => {
             $("#goods").load("/Shop/Goods?id=" + e.target.id);
         });
     });

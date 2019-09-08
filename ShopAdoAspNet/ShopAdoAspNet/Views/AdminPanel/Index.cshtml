@@ -2,3 +2,16 @@
     ViewBag.Title = "Index";
 }
 
+<div class="btns">
+    <a class="menu-btn" id="Category">Category</a>
+    <a class="menu-btn" id="Manufacturer">Manufacturer</a>
+    <a class="menu-btn" id="Good">Good</a>
+</div>
+
+<div class="info"></div>
+
+<script>
+    $(".menu-btn").on("click", (e) => {
+        $(".info").load("/AdminPanel/GetIndex?controllerName=" + e.target.id);
+    });
+</script>

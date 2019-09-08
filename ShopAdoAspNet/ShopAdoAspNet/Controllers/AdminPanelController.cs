@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ShopAdo.DAL;
+using ShopAdo.DAL.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,14 @@ namespace ShopAdoAspNet.Controllers
 {
     public class AdminPanelController : Controller
     {
-        // GET: AdminPanel
         public ActionResult Index()
         {
             return View();
+        }
+        
+        public ActionResult GetIndex(string controllerName)
+        {
+            return RedirectToAction("Index", controllerName);
         }
     }
 }

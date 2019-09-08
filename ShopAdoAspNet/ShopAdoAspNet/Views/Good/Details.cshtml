@@ -1,0 +1,58 @@
+﻿@model ShopAdo.DAL.Good
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Good</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GoodName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoodName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufacturerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufacturerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoodCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoodCount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GoodId }) |
+    @Html.ActionLink("Back to List", "Index", "AdminPanel")
+</p>

@@ -3,3 +3,8 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.menu-btn:hover {
+    cursor: pointer;
+    color: #007BFF !important;
+}
