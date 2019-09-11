@@ -175,7 +175,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ShopAdoDP.cs" />
+    <Compile Include="Models\CategoryFilter.cs" />
+    <Compile Include="Models\GoodsList.cs" />
+    <Compile Include="Models\IGoodFilter.cs" />
     <Compile Include="Models\GoodViewModel.cs" />
+    <Compile Include="Models\IFilter.cs" />
+    <Compile Include="Models\PriceFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

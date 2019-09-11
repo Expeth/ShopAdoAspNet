@@ -24,6 +24,11 @@ namespace ShopAdoAspNet.Controllers
 
         public ActionResult Index()
         {
+            //var filters = new List<IGoodFilter>
+            //{
+            //    new PriceFilter { From = 100, To = 2000},
+            //    new CategoryFilter { CheckBoxes = new Dictionary<Category, bool>(_categoryRepository.GetAll().ToDictionary(x => x, x => false)) }
+            //};
             return View(_categoryRepository.GetAll());
         }
 
@@ -40,6 +45,17 @@ namespace ShopAdoAspNet.Controllers
                     Photos = _photoRepository.GetAll().Where(p => p.GoodId == i.GoodId).ToList()
                 });
             }
+
+            //var goodsList = new GoodsList();
+            //var filters = new List<IGoodFilter>
+            //{
+            //    new PriceFilter { From = 100, To = 2000},
+            //    new CategoryFilter { CheckBoxes = new Dictionary<Category, bool>(_categoryRepository.GetAll().ToDictionary(x => x, x => false)) }
+            //};
+
+            //goodsList.Goods = goods;
+            //goodsList.Filters = filters;
+
             return PartialView(goods);
         }
     }
