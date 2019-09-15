@@ -7,6 +7,14 @@
 <main class="container mt-3">
     <div class="row">
         <div id="left-menu" class="col-lg-3">
+            <div id="sort-panel">
+                <h4>Sort</h4>
+                <div class="filter-inner">
+                    <input class="sorting-btn" type="radio" name="sort-price" value="Sort by price" />
+                    <input class="sorting-btn" type="radio" name="sort-price" value="Sort by name" />
+                    <input class="sorting-btn" type="radio" name="sort-price" value="Sort by amount" />
+                </div>
+            </div>
             @using (Html.BeginForm("Index", "Shop", FormMethod.Post, new { id = "get-goods-form" }))
             {
                 <div class="filter">
@@ -47,7 +55,7 @@
                 <input type="submit" class="btn btn-success mt-3">
             }
         </div>
-        <div id="items" class="col-lg-9 d-flex flex-row flex-wrap">
+        <div class="col-lg-9 d-flex flex-row flex-wrap">
             @foreach (var item in Model.Goods)
             {
                 <div class="card mb-2 mr-2" style="width: 15rem;">
@@ -85,7 +93,7 @@
 </main>
 
 <script>
-                //$(() => {
-                //    $("get-goods-form").on("submit")
-                //});
+                    //$(() => {
+                    //    $("get-goods-form").on("submit")
+                    //});
 </script>
