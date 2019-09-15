@@ -27,7 +27,7 @@ namespace ShopAdoAspNet.Controllers
 
         public ActionResult Index()
         {
-            return PartialView(_goodRepository.GetAll());
+            return View(_goodRepository.GetAll());
         }
 
         public ActionResult Details(int id)
@@ -38,7 +38,7 @@ namespace ShopAdoAspNet.Controllers
         public ActionResult Delete(int id)
         {
             _goodRepository.Delete(_goodRepository.Get(id));
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Good");
         }
 
         public ActionResult Edit(int id)
@@ -75,6 +75,9 @@ namespace ShopAdoAspNet.Controllers
 
             foreach (var photo in fileUpload)
             {
+                if (photo == null)
+                    break;
+
                 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Uploaded/");
                 string filename = Path.GetFileName(photo.FileName);
                 string pathToFile = Path.Combine(path, filename);
@@ -85,7 +88,7 @@ namespace ShopAdoAspNet.Controllers
             }
 
             _goodRepository.AddOrUpdate(good);
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Good");
         }
 
         public ActionResult Add()
@@ -113,6 +116,9 @@ namespace ShopAdoAspNet.Controllers
 
             foreach (var photo in fileUpload)
             {
+                if (photo == null)
+                    break;
+
                 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Uploaded/");
                 string filename = Path.GetFileName(photo.FileName);
                 string pathToFile = Path.Combine(path, filename);
@@ -123,7 +129,7 @@ namespace ShopAdoAspNet.Controllers
             }
 
             _goodRepository.AddOrUpdate(good);
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Good");
         }
     }
 }

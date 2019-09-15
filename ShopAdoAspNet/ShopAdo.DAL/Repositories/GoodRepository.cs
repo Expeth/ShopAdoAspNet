@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,11 @@ namespace ShopAdo.DAL.Repositories
         public IEnumerable<Good> GetAll()
         {
             return _context.Good;
+        }
+
+        public IEnumerable<Good> FindBy(Expression<Func<Good, bool>> predicate)
+        {
+            return _context.Good.Where(predicate);
         }
 
         ~GoodRepository()

@@ -19,7 +19,7 @@ namespace ShopAdoAspNet.Controllers
 
         public ActionResult Index()
         {
-            return PartialView(_categoryRepository.GetAll());
+            return View(_categoryRepository.GetAll());
         }
 
         public ActionResult Details(int id)
@@ -30,7 +30,7 @@ namespace ShopAdoAspNet.Controllers
         public ActionResult Delete(int id)
         {
             _categoryRepository.Delete(_categoryRepository.Get(id));
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Category");
         }
 
         public ActionResult Edit(int id)
@@ -42,7 +42,7 @@ namespace ShopAdoAspNet.Controllers
         public ActionResult Edit(Category category)
         {
             _categoryRepository.AddOrUpdate(category);
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Category");
         }
 
         public ActionResult Add()
@@ -54,7 +54,7 @@ namespace ShopAdoAspNet.Controllers
         public ActionResult Add(Category category)
         {
             _categoryRepository.AddOrUpdate(category);
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Category");
         }
     }
 }

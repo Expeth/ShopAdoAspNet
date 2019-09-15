@@ -1,27 +1,40 @@
 ﻿@model IEnumerable<ShopAdo.DAL.Category>
 
-<p>
-    @Html.ActionLink("Create New", "Add")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategoryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId })
-        </td>
-    </tr>
+@{
+    ViewBag.Title = "Category Table";
 }
 
-</table>
+<main class="container">
+    <div class="row mt-3">
+        @Html.ActionLink("Create new", "Add", null, new { @class = "btn btn-success" })
+    </div>
+    <div class="row mt-3">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }, new { @class = "text-warning" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.CategoryId }, new { @class = "text-success" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new { @class = "text-danger" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</main>

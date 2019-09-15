@@ -19,7 +19,7 @@ namespace ShopAdoAspNet.Controllers
 
         public ActionResult Index()
         {
-            return PartialView(_manufacturerRepository.GetAll());
+            return View(_manufacturerRepository.GetAll());
         }
 
         public ActionResult Details(int id)
@@ -30,7 +30,7 @@ namespace ShopAdoAspNet.Controllers
         public ActionResult Delete(int id)
         {
             _manufacturerRepository.Delete(_manufacturerRepository.Get(id));
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Manufacturer");
         }
 
         public ActionResult Edit(int id)
@@ -42,7 +42,7 @@ namespace ShopAdoAspNet.Controllers
         public ActionResult Edit(Manufacturer manufacturer)
         {
             _manufacturerRepository.AddOrUpdate(manufacturer);
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Manufacturer");
         }
 
         public ActionResult Add()
@@ -54,7 +54,7 @@ namespace ShopAdoAspNet.Controllers
         public ActionResult Add(Manufacturer manufacturer)
         {
             _manufacturerRepository.AddOrUpdate(manufacturer);
-            return RedirectToAction("Index", "AdminPanel");
+            return RedirectToAction("Index", "Manufacturer");
         }
     }
 }
