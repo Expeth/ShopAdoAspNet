@@ -90,7 +90,6 @@ namespace ShopAdoAspNet.Controllers
                     Photos = _photoRepository.GetAll().Where(p => p.GoodId == i.GoodId).ToList()
                 });
             }
-            
             return View(new DisplayGoodsViewModel { Filter = filter, Goods = goods });
         }
     }

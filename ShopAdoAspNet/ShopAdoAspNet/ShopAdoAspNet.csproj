@@ -180,6 +180,8 @@
     <Compile Include="Models\DisplayGoodsViewModel.cs" />
     <Compile Include="Models\GoodFilter.cs" />
     <Compile Include="Models\GoodViewModel.cs" />
+    <Compile Include="Models\IFilter.cs" />
+    <Compile Include="Models\PriceFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
