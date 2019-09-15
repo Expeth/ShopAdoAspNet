@@ -52,6 +52,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LinqKit, Version=1.1.16.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.16\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
@@ -151,7 +154,6 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\AdminPanel\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -165,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\GoodController.cs" />
     <Compile Include="Controllers\ManufacturerController.cs" />
@@ -175,9 +176,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ShopAdoDP.cs" />
-    <Compile Include="Models\CategoryFilter.cs" />
-    <Compile Include="Models\GoodsList.cs" />
-    <Compile Include="Models\IGoodFilter.cs" />
+    <Compile Include="Models\CheckBoxFor.cs" />
+    <Compile Include="Models\DisplayGoodsViewModel.cs" />
+    <Compile Include="Models\GoodFilter.cs" />
     <Compile Include="Models\GoodViewModel.cs" />
     <Compile Include="Models\IFilter.cs" />
     <Compile Include="Models\PriceFilter.cs" />
@@ -191,7 +192,6 @@
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
-    <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Manufacturer\Index.cshtml" />
     <Content Include="Views\Manufacturer\Details.cshtml" />
     <Content Include="Views\Manufacturer\Edit.cshtml" />
@@ -199,10 +199,11 @@
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Add.cshtml" />
-    <Content Include="Views\Good\Index.cshtml" />
     <Content Include="Views\Good\Details.cshtml" />
-    <Content Include="Views\Good\Edit.cshtml" />
     <Content Include="Views\Good\Add.cshtml" />
+    <Content Include="Views\Good\Index.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Good\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
