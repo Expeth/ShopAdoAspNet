@@ -1,4 +1,4 @@
-﻿using ShopAdo.DAL;
+﻿using ShopAdo.BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace ShopAdoAspNet.Models
     {
         public double PriceFrom { get; set; }
         public double PriceTo { get; set; }
-        public IList<CheckBoxFor<Category>> Categories { get; set; }
-        public IList<CheckBoxFor<Manufacturer>> Manufacturers { get; set; }
+        public IList<CheckBoxFor<CategoryDTO>> Categories { get; set; }
+        public IList<CheckBoxFor<ManufacturerDTO>> Manufacturers { get; set; }
     }
 }

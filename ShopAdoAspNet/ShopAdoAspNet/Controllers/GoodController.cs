@@ -1,6 +1,8 @@
-﻿using ShopAdo.DAL;
-using ShopAdo.DAL.Repositories;
+﻿using AutoMapper;
+using ShopAdo.BLL.DTO;
+using ShopAdo.BLL.Services;
 using ShopAdoAspNet.Models;
+using ShopAdoAspNet.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,67 +13,59 @@ using System.Web.Mvc;
 namespace ShopAdoAspNet.Controllers
 {
     public class GoodController : Controller
-    {
-        private readonly IRepository<Good> _goodRepository;
-        private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<Manufacturer> _manufacturerRepository;
-        private readonly IRepository<Photo> _photoRepository;
+    { 
+        private readonly IService<GoodDTO> _goodService;
+        private readonly IService<CategoryDTO> _categoryService;
+        private readonly IService<ManufacturerDTO> _manufacturerService;
+        private readonly IService<PhotoDTO> _photoService;
+        private readonly IMapper _mapper;
 
-        public GoodController(IRepository<Good> goodRepository, IRepository<Category> categoryRepository, IRepository<Manufacturer> manufacturerRepository, IRepository<Photo> photoRepository)
+        public GoodController(IService<GoodDTO> goodService, IService<CategoryDTO> categoryService, IService<ManufacturerDTO> manufacturerService, IService<PhotoDTO> photoService)
         {
-            _goodRepository = goodRepository;
-            _categoryRepository = categoryRepository;
-            _manufacturerRepository = manufacturerRepository;
-            _photoRepository = photoRepository;
+            _goodService = goodService;
+            _categoryService = categoryService;
+            _manufacturerService = manufacturerService;
+            _photoService = photoService;
+
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<GoodDTO, CreateGoodViewModel>()
+                        .ForMember("Photos", opt => opt.MapFrom(good => _photoService.GetAll().Where(x => x.GoodId == good.GoodId).ToList()))
+                        .ForMember("Manufacturers", opt => opt.MapFrom(good => new SelectList(_manufacturerService.GetAll(), "ManufacturerId", "ManufacturerName")))
+                        .ForMember("Categories", opt => opt.MapFrom(good => new SelectList(_categoryService.GetAll(), "CategoryId", "CategoryName")));
+                cfg.CreateMap<CreateGoodViewModel, GoodDTO>();
+            });
+            _mapper = configuration.CreateMapper();
         }
 
         public ActionResult Index()
         {
-            return View(_goodRepository.GetAll());
+            return View(_goodService.GetAll());
         }
 
         public ActionResult Details(int id)
         {
-            return View(_goodRepository.Get(id));
+            return View(_goodService.Get(id));
         }
 
         public ActionResult Delete(int id)
         {
-            _goodRepository.Delete(_goodRepository.Get(id));
+            _goodService.Delete(_goodService.Get(id));
             return RedirectToAction("Index", "Good");
         }
 
         public ActionResult Edit(int id)
         {
-            var good = _goodRepository.Get(id);
-            var viewModel = new GoodViewModel
-            {
-                GoodCount = good.GoodCount,
-                GoodId = good.GoodId,
-                GoodName = good.GoodName,
-                Price = good.Price,
-                CategoryId = good.CategoryId.Value,
-                ManufacturerId = good.ManufacturerId.Value,
-                Photos = _photoRepository.GetAll().Where(x => x.GoodId == good.GoodId).ToList(),
-                Manufacturers = new SelectList(_manufacturerRepository.GetAll(), "ManufacturerId", "ManufacturerName"),
-                Categories = new SelectList(_categoryRepository.GetAll(), "CategoryId", "CategoryName")
-            };
+            var good = _goodService.Get(id);
+            var viewModel = _mapper.Map<CreateGoodViewModel>(good);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(GoodViewModel viewModel, IEnumerable<HttpPostedFileBase> fileUpload)
+        public ActionResult Edit(CreateGoodViewModel viewModel, IEnumerable<HttpPostedFileBase> fileUpload)
         {
-            var good = new Good
-            {
-                GoodId = viewModel.GoodId,
-                CategoryId = viewModel.CategoryId,
-                ManufacturerId = viewModel.ManufacturerId,
-                GoodCount = viewModel.GoodCount,
-                GoodName = viewModel.GoodName,
-                Price = viewModel.Price
-            };
+            var good = _mapper.Map<GoodDTO>(viewModel);
 
             foreach (var photo in fileUpload)
             {
@@ -84,35 +78,24 @@ namespace ShopAdoAspNet.Controllers
                 if (filename != null)
                     photo.SaveAs(pathToFile);
 
-                _photoRepository.AddOrUpdate(new Photo { GoodId = viewModel.GoodId, PhotoPath = pathToFile });
+                _photoService.AddOrUpdate(new PhotoDTO { GoodId = good.GoodId, PhotoPath = pathToFile });
             }
 
-            _goodRepository.AddOrUpdate(good);
+            _goodService.AddOrUpdate(good);
             return RedirectToAction("Index", "Good");
         }
 
         public ActionResult Add()
         {
-            var viewModel = new GoodViewModel
-            {
-                Manufacturers = new SelectList(_manufacturerRepository.GetAll(), "ManufacturerId", "ManufacturerName"),
-                Categories = new SelectList(_categoryRepository.GetAll(), "CategoryId", "CategoryName")
-            };
+            var viewModel = _mapper.Map<CreateGoodViewModel>(new GoodDTO());
+
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Add(GoodViewModel viewModel, IEnumerable<HttpPostedFileBase> fileUpload)
+        public ActionResult Add(CreateGoodViewModel viewModel, IEnumerable<HttpPostedFileBase> fileUpload)
         {
-            var good = new Good
-            {
-                GoodId = viewModel.GoodId,
-                GoodCount = viewModel.GoodCount,
-                GoodName = viewModel.GoodName,
-                CategoryId = viewModel.CategoryId,
-                ManufacturerId = viewModel.ManufacturerId,
-                Price = viewModel.Price
-            };
+            var good = _mapper.Map<GoodDTO>(viewModel);
 
             foreach (var photo in fileUpload)
             {
@@ -125,10 +108,10 @@ namespace ShopAdoAspNet.Controllers
                 if (filename != null)
                     photo.SaveAs(pathToFile);
 
-                _photoRepository.AddOrUpdate(new Photo { GoodId = viewModel.GoodId, PhotoPath = pathToFile });
+                _photoService.AddOrUpdate(new PhotoDTO { GoodId = good.GoodId, PhotoPath = pathToFile });
             }
 
-            _goodRepository.AddOrUpdate(good);
+            _goodService.AddOrUpdate(good);
             return RedirectToAction("Index", "Good");
         }
     }

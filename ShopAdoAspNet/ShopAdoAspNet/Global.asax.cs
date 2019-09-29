@@ -1,4 +1,9 @@
-﻿using ShopAdoAspNet.Helpers;
+﻿using AutoMapper;
+using Ninject;
+using ShopAdo.BLL.DTO;
+using ShopAdo.Ninject;
+using ShopAdoAspNet.Helpers;
+using ShopAdoAspNet.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +19,9 @@ namespace ShopAdoAspNet
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            DependencyResolver.SetResolver(new ShopAdoDP());
+
+            var ninjectModule = new ShopAdoNinjectModule();
+            DependencyResolver.SetResolver(new ShopAdoDR(new StandardKernel(ninjectModule)));
         }
     }
 }

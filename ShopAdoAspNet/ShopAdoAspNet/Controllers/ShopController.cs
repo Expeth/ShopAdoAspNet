@@ -1,6 +1,7 @@
-﻿ using LinqKit;
-using ShopAdo.DAL;
-using ShopAdo.DAL.Repositories;
+﻿using AutoMapper;
+using LinqKit;
+using ShopAdo.BLL.DTO;
+using ShopAdo.BLL.Services;
 using ShopAdoAspNet.Models;
 using System;
 using System.Collections.Generic;
@@ -12,52 +13,60 @@ namespace ShopAdoAspNet.Controllers
 {
     public class ShopController : Controller
     {
-        private readonly IRepository<Good> _goodRepository;
-        private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<Manufacturer> _manufacturerRepository;
-        private readonly IRepository<Photo> _photoRepository;
+        private readonly IService<GoodDTO> _goodService;
+        private readonly IService<CategoryDTO> _categoryService;
+        private readonly IService<ManufacturerDTO> _manufacturerService;
+        private readonly IService<PhotoDTO> _photoService;
+        private readonly IMapper _mapper;
 
-        public ShopController(IRepository<Good> goodRepository, IRepository<Category> categoryRepository, IRepository<Manufacturer> manufacturerRepository, IRepository<Photo> photoRepository)
+        public ShopController(IService<GoodDTO> goodService, IService<CategoryDTO> categoryService, IService<ManufacturerDTO> manufacturerService, IService<PhotoDTO> photoService)
         {
-            _goodRepository = goodRepository;
-            _categoryRepository = categoryRepository;
-            _manufacturerRepository = manufacturerRepository;
-            _photoRepository = photoRepository;
+            _goodService = goodService;
+            _categoryService = categoryService;
+            _manufacturerService = manufacturerService;
+            _photoService = photoService;
+
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<GoodDTO, DisplayGoodViewModel>();
+                cfg.CreateMap<DisplayGoodViewModel, GoodDTO>();
+            });
+            _mapper = configuration.CreateMapper();
         }
 
         public ActionResult Index()
         {
-            var categories = new List<CheckBoxFor<Category>>();
-            var manufacturers = new List<CheckBoxFor<Manufacturer>>();
+            var categories = new List<CheckBoxFor<CategoryDTO>>();
+            var manufacturers = new List<CheckBoxFor<ManufacturerDTO>>();
 
-            foreach (var item in _categoryRepository.GetAll())
-                categories.Add(new CheckBoxFor<Category> { Item = item, IsChecked = false });
+            foreach (var item in _categoryService.GetAll())
+                categories.Add(new CheckBoxFor<CategoryDTO> { Item = item, IsChecked = false });
 
-            foreach (var item in _manufacturerRepository.GetAll())
-                manufacturers.Add(new CheckBoxFor<Manufacturer> { Item = item, IsChecked = false });
+            foreach (var item in _manufacturerService.GetAll())
+                manufacturers.Add(new CheckBoxFor<ManufacturerDTO> { Item = item, IsChecked = false });
 
             var filter = new GoodFilter
             {
                 Categories = categories,
                 Manufacturers = manufacturers,
                 PriceFrom = 0,
-                PriceTo = (double)_goodRepository.GetAll().OrderByDescending(x => x.Price).FirstOrDefault().Price
+                PriceTo = (double)_goodService.GetAll().OrderByDescending(x => x.Price).FirstOrDefault().Price
             };
 
-            return View(new DisplayGoodsViewModel { Filter = filter, Goods = new List<GoodViewModel>() });
+            return View(new FilterGoodsViewModel { Filter = filter, Goods = new List<DisplayGoodViewModel>() });
         }
 
         [HttpPost]
         public ActionResult Index(GoodFilter filter)
         {
-            var predicate = PredicateBuilder.New<Good>();
+            var predicate = PredicateBuilder.New<GoodDTO>();
             predicate.And(x => (double)x.Price >= filter.PriceFrom);
             predicate.And(x => (double)x.Price <= filter.PriceTo);
 
-            var predicateCategory = PredicateBuilder.New<Good>();
+            var predicateCategory = PredicateBuilder.New<GoodDTO>();
             foreach (var item in filter.Categories)
             {
-                var predicateConcrete = PredicateBuilder.New<Good>();
+                var predicateConcrete = PredicateBuilder.New<GoodDTO>();
 
                 predicateConcrete.And(x => item.IsChecked);
                 predicateConcrete.And(x => x.CategoryId == item.Item.CategoryId);
@@ -65,10 +74,10 @@ namespace ShopAdoAspNet.Controllers
                 predicateCategory.Extend(predicateConcrete);
             }
 
-            var predicateManufacturer = PredicateBuilder.New<Good>();
+            var predicateManufacturer = PredicateBuilder.New<GoodDTO>();
             foreach (var item in filter.Manufacturers)
             {
-                var predicateConcrete = PredicateBuilder.New<Good>();
+                var predicateConcrete = PredicateBuilder.New<GoodDTO>();
 
                 predicateConcrete.And(x => item.IsChecked);
                 predicateConcrete.And(x => x.ManufacturerId == item.Item.ManufacturerId);
@@ -79,18 +88,12 @@ namespace ShopAdoAspNet.Controllers
             predicate.Extend(predicateCategory, PredicateOperator.And);
             predicate.Extend(predicateManufacturer, PredicateOperator.And);
 
-            var goods = new List<GoodViewModel>();
-            foreach (var i in _goodRepository.FindBy(predicate))
+            var goods = new List<DisplayGoodViewModel>();
+            foreach (var i in _goodService.FindBy(predicate))
             {
-                goods.Add(new GoodViewModel
-                {
-                    GoodName = i.GoodName,
-                    GoodCount = (int)i.GoodCount,
-                    Price = i.Price,
-                    Photos = _photoRepository.GetAll().Where(p => p.GoodId == i.GoodId).ToList()
-                });
+                goods.Add(_mapper.Map<DisplayGoodViewModel>(i));
             }
-            return View(new DisplayGoodsViewModel { Filter = filter, Goods = goods });
+            return View(new FilterGoodsViewModel { Filter = filter, Goods = goods });
         }
     }
 }

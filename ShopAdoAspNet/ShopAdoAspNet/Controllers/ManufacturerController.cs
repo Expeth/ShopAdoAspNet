@@ -1,5 +1,5 @@
-﻿using ShopAdo.DAL;
-using ShopAdo.DAL.Repositories;
+﻿using ShopAdo.BLL.DTO;
+using ShopAdo.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,38 +10,38 @@ namespace ShopAdoAspNet.Controllers
 {
     public class ManufacturerController : Controller
     {
-        private readonly IRepository<Manufacturer> _manufacturerRepository;
+        private readonly IService<ManufacturerDTO> _manufacturerService;
 
-        public ManufacturerController()
+        public ManufacturerController(IService<ManufacturerDTO> manufacturerService)
         {
-            _manufacturerRepository = new ManufacturerRepository();
+            _manufacturerService = manufacturerService;
         }
 
         public ActionResult Index()
         {
-            return View(_manufacturerRepository.GetAll());
+            return View(_manufacturerService.GetAll());
         }
 
         public ActionResult Details(int id)
         {
-            return View(_manufacturerRepository.Get(id));
+            return View(_manufacturerService.Get(id));
         }
 
         public ActionResult Delete(int id)
         {
-            _manufacturerRepository.Delete(_manufacturerRepository.Get(id));
+            _manufacturerService.Delete(_manufacturerService.Get(id));
             return RedirectToAction("Index", "Manufacturer");
         }
 
         public ActionResult Edit(int id)
         {
-            return View(_manufacturerRepository.Get(id));
+            return View(_manufacturerService.Get(id));
         }
 
         [HttpPost]
-        public ActionResult Edit(Manufacturer manufacturer)
+        public ActionResult Edit(ManufacturerDTO manufacturer)
         {
-            _manufacturerRepository.AddOrUpdate(manufacturer);
+            _manufacturerService.AddOrUpdate(manufacturer);
             return RedirectToAction("Index", "Manufacturer");
         }
 
@@ -51,9 +51,9 @@ namespace ShopAdoAspNet.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Manufacturer manufacturer)
+        public ActionResult Add(ManufacturerDTO manufacturer)
         {
-            _manufacturerRepository.AddOrUpdate(manufacturer);
+            _manufacturerService.AddOrUpdate(manufacturer);
             return RedirectToAction("Index", "Manufacturer");
         }
     }

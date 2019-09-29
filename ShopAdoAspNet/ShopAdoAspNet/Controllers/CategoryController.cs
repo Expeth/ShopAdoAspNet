@@ -1,5 +1,5 @@
-﻿using ShopAdo.DAL;
-using ShopAdo.DAL.Repositories;
+﻿using ShopAdo.BLL.DTO;
+using ShopAdo.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,38 +10,38 @@ namespace ShopAdoAspNet.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly IRepository<Category> _categoryRepository;
+        private readonly IService<CategoryDTO> _categoryService;
 
-        public CategoryController(IRepository<Category> categoryRepository)
+        public CategoryController(IService<CategoryDTO> categoryService)
         {
-            _categoryRepository = categoryRepository;
+            _categoryService = categoryService;
         }
 
         public ActionResult Index()
         {
-            return View(_categoryRepository.GetAll());
+            return View(_categoryService.GetAll());
         }
 
         public ActionResult Details(int id)
         {
-            return View(_categoryRepository.Get(id));
+            return View(_categoryService.Get(id));
         }
 
         public ActionResult Delete(int id)
         {
-            _categoryRepository.Delete(_categoryRepository.Get(id));
+            _categoryService.Delete(_categoryService.Get(id));
             return RedirectToAction("Index", "Category");
         }
 
         public ActionResult Edit(int id)
         {
-            return View(_categoryRepository.Get(id));
+            return View(_categoryService.Get(id));
         }
 
         [HttpPost]
-        public ActionResult Edit(Category category)
+        public ActionResult Edit(CategoryDTO category)
         {
-            _categoryRepository.AddOrUpdate(category);
+            _categoryService.AddOrUpdate(category);
             return RedirectToAction("Index", "Category");
         }
 
@@ -51,9 +51,9 @@ namespace ShopAdoAspNet.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Category category)
+        public ActionResult Add(CategoryDTO category)
         {
-            _categoryRepository.AddOrUpdate(category);
+            _categoryService.AddOrUpdate(category);
             return RedirectToAction("Index", "Category");
         }
     }

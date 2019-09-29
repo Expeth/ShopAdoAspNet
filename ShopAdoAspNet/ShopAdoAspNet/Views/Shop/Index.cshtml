@@ -1,4 +1,4 @@
-﻿@model ShopAdoAspNet.Models.DisplayGoodsViewModel
+﻿@model ShopAdoAspNet.Models.FilterGoodsViewModel
 
 @{
     ViewBag.Title = "Shop";
@@ -61,7 +61,7 @@
                 <div class="card mb-2 mr-2" style="width: 15rem;">
                     <div class="card-img p-3">
                         <img class="card-img-top"
-                             src="@(item.Photos.FirstOrDefault()?.PhotoPath)"
+                             src="@(item.Photos?.FirstOrDefault()?.PhotoPath)"
                              alt="">
                     </div>
                     <div class="card-body">

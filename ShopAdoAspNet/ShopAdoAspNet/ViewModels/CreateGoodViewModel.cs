@@ -1,0 +1,23 @@
+﻿using ShopAdo.BLL.DTO;
+using ShopAdoAspNet.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace ShopAdoAspNet.ViewModels
+{
+    public class CreateGoodViewModel
+    {
+        public int GoodId { get; set; }
+        public string GoodName { get; set; }
+        public int GoodCount { get; set; }
+        public double Price { get; set; }
+        public int? CategoryId { get; set; }
+        public int? ManufacturerId { get; set; }
+        public IEnumerable<PhotoDTO> Photos { get; set; }
+        public IEnumerable<SelectListItem> Manufacturers { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
+    }
+}

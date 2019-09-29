@@ -1,5 +1,5 @@
-﻿using ShopAdo.DAL;
-using ShopAdo.DAL.Repositories;
+﻿using ShopAdo.BLL.DTO;
+using ShopAdo.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +10,20 @@ namespace ShopAdoAspNet.Controllers
 {
     public class PhotoController : Controller
     {
-        private readonly IRepository<Photo> _photoRepository;
+        private readonly IService<PhotoDTO> _photoService;
 
-        public PhotoController(IRepository<Photo> photoRepository)
+        public PhotoController(IService<PhotoDTO> photoService)
         {
-            _photoRepository = photoRepository;
+            _photoService = photoService;
         }
 
         public ActionResult Delete(int id)
         {
-            var photo = _photoRepository.Get(id);
+            var photo = _photoService.Get(id);
             if (System.IO.File.Exists(photo.PhotoPath))
                 System.IO.File.Delete(photo.PhotoPath);
 
-            _photoRepository.Delete(photo);
+            _photoService.Delete(photo);
             return Redirect(Request.UrlReferrer.ToString());
         }
     }

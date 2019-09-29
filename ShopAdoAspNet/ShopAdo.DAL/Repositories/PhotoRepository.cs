@@ -8,40 +8,8 @@ using System.Threading.Tasks;
 
 namespace ShopAdo.DAL.Repositories
 {
-    public class PhotoRepository : IRepository<Photo>
+    public class PhotoRepository : GenericRepository<Photo>
     {
-        private readonly ShopAdo _context = new ShopAdo();
-
-        public void AddOrUpdate(Photo obj)
-        {
-            _context.Photo.AddOrUpdate(obj);
-            _context.SaveChanges();
-        }
-
-        public void Delete(Photo obj)
-        {
-            _context.Photo.Remove(obj);
-            _context.SaveChanges();
-        }
-
-        public Photo Get(int id)
-        {
-            return _context.Photo.FirstOrDefault(x => x.PhotoId == id);
-        }
-
-        public IEnumerable<Photo> GetAll()
-        {
-            return _context.Photo;
-        }
-
-        public IEnumerable<Photo> FindBy(Expression<Func<Good, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        ~PhotoRepository()
-        {
-            _context.Dispose();
-        }
+        public PhotoRepository(ShopAdo context) : base(context) { }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model ShopAdo.DAL.Good
+﻿@model ShopAdo.BLL.DTO.GoodDTO
 
 @{
     ViewBag.Title = "Good Details";
@@ -19,8 +19,8 @@
                 <tr>
                     <td>@Model.GoodId</td>
                     <td>@Model.GoodName</td>
-                    <td>@Model.Category.CategoryName</td>
-                    <td>@Model.Manufacturer.ManufacturerName</td>
+                    <td>@Model.CategoryName</td>
+                    <td>@Model.ManufacturerName</td>
                     <td>@Model.Price</td>
                     <td>@Model.GoodCount</td>
                 </tr>

@@ -8,40 +8,8 @@ using System.Threading.Tasks;
 
 namespace ShopAdo.DAL.Repositories
 {
-    public class GoodRepository : IRepository<Good>
+    public class GoodRepository : GenericRepository<Good>
     {
-        private readonly ShopAdo _context = new ShopAdo();
-
-        public void AddOrUpdate(Good obj)
-        {
-            _context.Good.AddOrUpdate(obj);
-            _context.SaveChanges();
-        }
-
-        public void Delete(Good obj)
-        {
-            _context.Good.Remove(obj);
-            _context.SaveChanges();
-        }
-
-        public Good Get(int id)
-        {
-            return _context.Good.FirstOrDefault(x => x.GoodId == id);
-        }
-
-        public IEnumerable<Good> GetAll()
-        {
-            return _context.Good;
-        }
-
-        public IEnumerable<Good> FindBy(Expression<Func<Good, bool>> predicate)
-        {
-            return _context.Good.Where(predicate);
-        }
-
-        ~GoodRepository()
-        {
-            _context.Dispose();
-        }
+        public GoodRepository(ShopAdo context) : base(context) { }
     }
 }

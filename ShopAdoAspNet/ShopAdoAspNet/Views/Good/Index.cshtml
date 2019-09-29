@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShopAdo.DAL.Good>
+﻿@model IEnumerable<ShopAdo.BLL.DTO.GoodDTO>
 
 @{
     ViewBag.Title = "Good Table";
@@ -18,10 +18,10 @@
                     @Html.DisplayNameFor(model => model.GoodName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Manufacturer.ManufacturerName)
+                    @Html.DisplayNameFor(model => model.ManufacturerName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Category.CategoryName)
+                    @Html.DisplayNameFor(model => model.CategoryName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
@@ -41,10 +41,10 @@
                         @Html.DisplayFor(modelItem => item.GoodName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Manufacturer.ManufacturerName)
+                        @Html.DisplayFor(modelItem => item.ManufacturerName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        @Html.DisplayFor(modelItem => item.CategoryName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Price)
