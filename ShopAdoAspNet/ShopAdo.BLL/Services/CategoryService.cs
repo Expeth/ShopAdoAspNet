@@ -16,16 +16,10 @@ namespace ShopAdo.BLL.Services
         private readonly IRepository<Category> _repository;
         private readonly IMapper _mapper;
 
-        public CategoryService(IRepository<Category> repository)
+        public CategoryService(IRepository<Category> repository, IMapper mapper)
         {
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Category, CategoryDTO>();
-                cfg.CreateMap<CategoryDTO, Category>();
-            });
-
-            _mapper = configuration.CreateMapper();
             _repository = repository;
+            _mapper = mapper;
         }
 
         public void AddOrUpdate(CategoryDTO obj)

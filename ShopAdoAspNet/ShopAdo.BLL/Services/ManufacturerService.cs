@@ -16,16 +16,10 @@ namespace ShopAdo.BLL.Services
         private readonly IRepository<Manufacturer> _repository;
         private readonly IMapper _mapper;
 
-        public ManufacturerService(IRepository<Manufacturer> repository)
+        public ManufacturerService(IRepository<Manufacturer> repository, IMapper mapper)
         {
-            var configuration = new MapperConfiguration(cfg => 
-            {
-                cfg.CreateMap<Manufacturer, ManufacturerDTO>();
-                cfg.CreateMap<ManufacturerDTO, Manufacturer>();
-            });
-
-            _mapper = configuration.CreateMapper();
             _repository = repository;
+            _mapper = mapper;
         }
 
         public void AddOrUpdate(ManufacturerDTO obj)

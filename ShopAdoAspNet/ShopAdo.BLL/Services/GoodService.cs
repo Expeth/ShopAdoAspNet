@@ -17,20 +17,10 @@ namespace ShopAdo.BLL.Services
         private readonly IRepository<Good> _repository;
         private readonly IMapper _mapper;
 
-        public GoodService(IRepository<Good> repository)
+        public GoodService(IRepository<Good> repository, IMapper mapper)
         {
-            var configuration = new MapperConfiguration(
-
-            cfg =>
-            {
-                cfg.CreateMap<Good, GoodDTO>()
-                    .ForMember("ManufacturerName", opt => opt.MapFrom(good => good.Manufacturer.ManufacturerName))
-                    .ForMember("CategoryName", opt => opt.MapFrom(good => good.Category.CategoryName));
-                cfg.CreateMap<GoodDTO, Good>();
-            });
-
-            _mapper = configuration.CreateMapper();
             _repository = repository;
+            _mapper = mapper;
         }
 
         public void AddOrUpdate(GoodDTO obj)

@@ -16,16 +16,10 @@ namespace ShopAdo.BLL.Services
         private readonly IRepository<Photo> _repository;
         private readonly IMapper _mapper;
 
-        public PhotoService(IRepository<Photo> repository)
+        public PhotoService(IRepository<Photo> repository, IMapper mapper)
         {
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Photo, PhotoDTO>();
-                cfg.CreateMap<PhotoDTO, Photo>();
-            });
-
-            _mapper = configuration.CreateMapper();
             _repository = repository;
+            _mapper = mapper;
         }
 
         public void AddOrUpdate(PhotoDTO obj)
