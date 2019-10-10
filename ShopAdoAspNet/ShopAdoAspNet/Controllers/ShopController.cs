@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace ShopAdoAspNet.Controllers
 {
+    [AllowAnonymous]
     public class ShopController : Controller
     {
         private readonly IService<GoodDTO> _goodService;

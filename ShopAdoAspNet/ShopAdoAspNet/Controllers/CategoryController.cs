@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ShopAdoAspNet.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly IService<CategoryDTO> _categoryService;

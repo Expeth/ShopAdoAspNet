@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAdoAspNet", "ShopAdoAspNet\ShopAdoAspNet.csproj", "{25661054-D4CD-4B47-9EBE-F23466A05978}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAdo.Web", "ShopAdoAspNet\ShopAdo.Web.csproj", "{25661054-D4CD-4B47-9EBE-F23466A05978}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAdo.DAL", "ShopAdo.DAL\ShopAdo.DAL.csproj", "{24AA3F7C-4B35-4416-8A1C-13F98EEA1D80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAdo.BLL", "ShopAdo.BLL\ShopAdo.BLL.csproj", "{D5B3E5A7-5093-4CFB-8EDD-E78E0D385ABA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAdo.Ninject", "ShopAdo.Ninject\ShopAdo.Ninject.csproj", "{AFBAB92D-A1C2-4F52-A228-E2EA970CF7E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAdo.Identity", "ShopAdo.Identity\ShopAdo.Identity.csproj", "{E760DCDF-3637-4B6D-AB83-E4B6F55D6B58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAdo.Contracts", "ShopAdo.Contracts\ShopAdo.Contracts.csproj", "{BBF83246-A832-41D0-BD06-92E328051D68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{AFBAB92D-A1C2-4F52-A228-E2EA970CF7E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFBAB92D-A1C2-4F52-A228-E2EA970CF7E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFBAB92D-A1C2-4F52-A228-E2EA970CF7E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E760DCDF-3637-4B6D-AB83-E4B6F55D6B58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E760DCDF-3637-4B6D-AB83-E4B6F55D6B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E760DCDF-3637-4B6D-AB83-E4B6F55D6B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E760DCDF-3637-4B6D-AB83-E4B6F55D6B58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF83246-A832-41D0-BD06-92E328051D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF83246-A832-41D0-BD06-92E328051D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF83246-A832-41D0-BD06-92E328051D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF83246-A832-41D0-BD06-92E328051D68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

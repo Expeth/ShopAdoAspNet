@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ShopAdoAspNet.Controllers
 {
+    [Authorize]
     public class PhotoController : Controller
     {
         private readonly IService<PhotoDTO> _photoService;

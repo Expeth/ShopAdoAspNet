@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ShopAdoAspNet.Controllers
 {
+    [Authorize]
     public class ManufacturerController : Controller
     {
         private readonly IService<ManufacturerDTO> _manufacturerService;

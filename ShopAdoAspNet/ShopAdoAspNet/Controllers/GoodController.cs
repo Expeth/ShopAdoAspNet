@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace ShopAdoAspNet.Controllers
 {
+    [Authorize]
     public class GoodController : Controller
     { 
         private readonly IService<GoodDTO> _goodService;
