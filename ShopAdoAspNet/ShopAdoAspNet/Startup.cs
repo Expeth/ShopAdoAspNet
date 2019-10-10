@@ -35,7 +35,8 @@ namespace ShopAdoAspNet
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                ExpireTimeSpan = TimeSpan.FromMinutes(15)
+                ExpireTimeSpan = TimeSpan.FromMinutes(15),
+                LoginPath = new PathString("/Auth/Login")
             });
         }
     }
